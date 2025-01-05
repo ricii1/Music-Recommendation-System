@@ -101,34 +101,62 @@ Dataset yang digunakan adalah dataset _30000 Spotify Songs_ yang dibuat oleh Joa
 
 ### Exploratory Data Analysis - Data Analysis
 
-- Track, Artis dan Album
-  Gambar
+- Track, Artis dan Album <br>
+  ![image](https://github.com/user-attachments/assets/bc8eb948-ff2d-46bc-bbe9-5ee9055e9da4)
+
   - Banyak track pada data: 28356
   - Banyak artis pada data: 10693
   - Banyak album pada data: 22545
 
-- Popularity
+- Popularity <br>
+  ![image](https://github.com/user-attachments/assets/c6f4f387-fe29-428a-a383-dd9c4700c01c)
 
-- Track Album Release Date 
+- Track Album Release Date (Year Distribution) <br>
+  ![image](https://github.com/user-attachments/assets/9d6e6fef-85ce-4195-a1ca-5524f4e66e45)
 
-- Playlist Genre
+- Playlist Genre <br>
+  ![image](https://github.com/user-attachments/assets/15706341-1924-4fe8-a807-cccc77465e1a)
+  
+- Playlist Sub-Genre <br>
+  ![image](https://github.com/user-attachments/assets/2cc99ce2-8609-46eb-bc12-3aa8e1814006)
 
-- Playlist Sub-Genre
+- Duration <br>
+  ![image](https://github.com/user-attachments/assets/d7644242-38a7-4234-ad2a-8062fa13f62f)
+  
+- Key <br>
+  ![image](https://github.com/user-attachments/assets/fffddad6-5663-4f52-8fd9-9feac537a011)
 
-- Key
+- Mode <br>
+  ![image](https://github.com/user-attachments/assets/b8c11523-736a-4984-bac3-8b1b9012240b)
 
-- Mode 
- 
 - Music Characteristic
-  - Danceability
-  - Energy
-  - Loudness
-  - Speechiness
-  - Intrumentalness
-  - Liveness
-  - Valence
-  - Acousticness
-  - Tempo
+  - Danceability <br>
+    ![image](https://github.com/user-attachments/assets/b26a6b8d-892a-4a3c-833f-3905b673dfc1)
+
+  - Energy <br>
+    ![image](https://github.com/user-attachments/assets/cf19dd9c-c2ce-4bee-9dbf-dacbf7471bc9)
+    
+  - Loudness <br>
+    ![image](https://github.com/user-attachments/assets/a2c58b7f-4775-4f1c-9d65-9aa906769d36)
+
+  - Speechiness <br>
+    ![image](https://github.com/user-attachments/assets/08a1e4fc-2fc4-4891-9204-605db0ece505)
+
+  - Intrumentalness <br>
+    ![image](https://github.com/user-attachments/assets/a327ee6d-77de-4e00-9bcc-96054a661dae)
+
+  - Liveness <br>
+    ![image](https://github.com/user-attachments/assets/ce299589-cc8e-48aa-ab2e-e348662ba44e)
+
+  - Valence <br>
+    ![image](https://github.com/user-attachments/assets/952ab376-3123-4acd-ad51-a21196bc7aa6)
+
+  - Acousticness <br> 
+    ![image](https://github.com/user-attachments/assets/2f8eb19c-7236-4b76-b4ba-9941e8c4a6db)
+
+  - Tempo <br>
+    ![image](https://github.com/user-attachments/assets/385a5b4d-5799-4166-9043-00508d637063)
+
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
