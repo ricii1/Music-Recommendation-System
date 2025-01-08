@@ -121,7 +121,7 @@ Dataset yang digunakan adalah dataset _30000 Spotify Songs_ yang dibuat oleh Joa
   ![image](https://github.com/user-attachments/assets/2cc99ce2-8609-46eb-bc12-3aa8e1814006) <br>
   Sub-genre didominasi track-track seperti hip hop, urban contemporary, dan jenis-jenis pop. Sub-genre new jack swing dan big room memiliki pembagian paling kecil. 
 - Duration <br>
-  ![image]() <br>
+  ![image](https://github.com/user-attachments/assets/3a5b5854-5bce-4b79-ad72-79b5920f8da9)<br>
   Sebagian besar track berada pada durasi 3-4 menit.
 - Key <br>
   ![image](https://github.com/user-attachments/assets/fffddad6-5663-4f52-8fd9-9feac537a011) <br>
@@ -137,7 +137,7 @@ Dataset yang digunakan adalah dataset _30000 Spotify Songs_ yang dibuat oleh Joa
     ![image](https://github.com/user-attachments/assets/cf19dd9c-c2ce-4bee-9dbf-dacbf7471bc9) <br>
     Penyebaran energy juga berbentuk _negatively skewed distribution_ dengan data terpusat di kanan di sekitar nilai 0.6 - 0.9. Sebagian besar track memiliki nilai energy yang tinggi. 
   - Loudness <br>
-    ![image]() <br>
+    ![image](https://github.com/user-attachments/assets/aee186e9-31e8-41c1-b565-6b535817c8b9)<br>
     Penyebaran loudness ekstrim di daerah -7.5 - -2.5 berarti sebagian besar track memiliki tingkat suara yang keras. 
   - Speechiness <br>
     ![image](https://github.com/user-attachments/assets/08a1e4fc-2fc4-4891-9204-605db0ece505) <br>
@@ -383,7 +383,7 @@ Sedangkan apabila pairwise_metrics menggunakan **cosine_sim (algoritma Cosine Si
 ## Evaluation
 Metrik evaluasi yang digunakan untuk proyek ini adalah _Precision_. Metrik ini cocok digunakan untuk algoritma _content-based filtering_. _Precision_ memiliki formula sebagai berikut. <br>
 
-gambar rumus <br>
+![image](https://github.com/user-attachments/assets/54152086-79de-4d4f-9637-c7e5705e2ea7)<br>
 
 Berdasarkan tabel hasil dari **Euclidean Distance**, seluruh hasilnya memiliki genre, subgenre, mode, acousticness, dan instrumentalness yang sama serta selisih dari nilai-nilai numerik lainnya tidak jauh. Hal ini berarti hasil yang diberikan relevan sehingga memiliki _Precision_ 5/5 atau 100%. 
 <br><br>
