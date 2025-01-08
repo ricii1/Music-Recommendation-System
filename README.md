@@ -200,12 +200,13 @@ Berarti data yang ada tidak memiliki nilai null. <br>
 Data duplicate harus dihilangkan agar hasil rekomendasi tidak memberikan track yang sama dua kali serta meningkatkan efisiensi komputasi dengan menghilangkan perhitungan untuk data yang sama. Penghapusan data duplicate pada projek ini dilakukan dua kali sebagai berikut. 
 1. Penghapusan data duplicate berdasarkan track_id <br>
   Berdasarkan pengecekan data duplicate berdasarkan track_id dengan
-  ```py
-  duplicates_by_track_id = raw_data[raw_data.duplicated(subset=['track_id'], keep=False)]
-  duplicates_sorted_track_id = duplicates_by_track_id.sort_values(by='track_id')
-  duplicates_sorted_track_id
-  ```
-  menunjukkan bahwa terdapat 5796 baris kolom dengan track_id duplicate. track_id duplicate juga memberikan data yang sama sehingga dapat diambil salah satu saja. 
+    ```py
+    duplicates_by_track_id = raw_data[raw_data.duplicated(subset=['track_id'], keep=False)]
+    duplicates_sorted_track_id = duplicates_by_track_id.sort_values(by='track_id')
+    duplicates_sorted_track_id
+    ```
+    menunjukkan bahwa terdapat 5796 baris kolom dengan track_id duplicate. track_id duplicate juga memberikan data yang sama sehingga dapat diambil salah satu saja. 
+
 2. Penghapusan data duplicate berdasarkan track_name dan track_artists<br>
   Sebuah track umumnya tidak memiliki judul dan nama artis yang sama. Seorang artis tidak umum untuk memiliki 2 lagu dengan judul yang sama. Oleh karena itu, sebuah track dengan track_name dan track_artists sama berarti track tersebut kemungkinan besar adalah track yang sama. Berdasarkan pengecekan dengan track_name dan track_artists didapatkan terdapat 1058 data dengan track_name dan track_artists yang sama. Akan tetapi, track sama ini memiliki tingkat popularity yang berbeda. Hal ini kemungkinan karena seorang artis mendaftarkan musiknya lebih dari satu kali dan salah satunya lebih populer. Oleh karena itu, track yang diambil adalah track yang memiliki nilai popularity lebih tinggi. 
 
@@ -345,8 +346,7 @@ def get_song_recommendations(track_name, track_artist, pairwise_metrics, dataset
 
     # Mengurutkan similarity dari yang tertinggi
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-
-    # Mengambil 10 lagu teratas kecuali lagu yang dimasukkan
+    # Ambil sebanyak top_n tetapi exclude lagu yang dicari 
     sim_scores = sim_scores[1:top_n+1]
 
     # Mendapatkan indeks lagu yang direkomendasikan
@@ -355,20 +355,47 @@ def get_song_recommendations(track_name, track_artist, pairwise_metrics, dataset
     recommended_songs.loc[:, 'similarity_score'] = [score[1] for score in sim_scores]
     return recommended_songs
 ```
+Percobaan fungsi ini akan menggunakan lagu Secukupnya dari Hindia yang memiliki karakteristik sebagai berikut. 
+
+| track_name   | track_artist | playlist_genre | playlist_subgenre | danceability | energy   | key      | loudness | mode | speechiness | acousticness | instrumentalness | valence  | tempo    |
+|--------------|--------------|----------------|-------------------|--------------|----------|----------|----------|------|-------------|--------------|------------------|----------|----------|
+| Secukupnya   | Hindia       | latin          | latin pop         | 0.725025     | 0.795964 | 0.818182 | 0.879806 | 0.0  | 0.012958    | 0.0          | 0.0              | 0.942424 | 0.36676  |
+
+Sebagai contoh jika track_name dalam fungsi adalah "Secukupnya" dengan track_artist "Hindia" jika pairwise_metrics adalah **euclidean_sim (algoritma Euclidean Distance)**, dan top_n 5 akan menghasilkan sebagai berikut. 
+
+| track_name                     | track_artist       | playlist_genre | playlist_subgenre | danceability | energy   | key      | loudness | mode | speechiness | acousticness | instrumentalness | valence  | tempo    | similarity_score |
+|--------------------------------|--------------------|----------------|-------------------|--------------|----------|----------|----------|------|-------------|--------------|------------------|----------|----------|------------------|
+| Chantaje (feat. Maluma)        | Shakira            | latin          | latin pop         | 0.859186     | 0.772960 | 0.727273 | 0.926126 | 0.0  | 0.061215    | 0.0          | 0.0              | 0.916161 | 0.366919 | 0.848345         |
+| Jam                            | Starboy            | latin          | latin pop         | 0.729460     | 0.760958 | 0.909091 | 0.898508 | 0.0  | 0.030049    | 0.0          | 0.0              | 0.797978 | 0.321687 | 0.846174         |
+| DUELE EL CORAZON               | Enrique Iglesias   | latin          | latin pop         | 0.717264     | 0.903983 | 0.727273 | 0.916913 | 0.0  | 0.082440    | 0.0          | 0.0              | 0.854544 | 0.304550 | 0.837242         |
+| Back In The City               | Alejandro Sanz     | latin          | latin pop         | 0.749418     | 0.753957 | 0.909091 | 0.854550 | 0.0  | 0.017538    | 0.0          | 0.0              | 0.861615 | 0.513629 | 0.834409         |
+| No Te Veo - Digital Single     | Casa De Leones     | latin          | latin pop         | 0.853642     | 0.872978 | 0.727273 | 0.886040 | 0.0  | 0.064343    | 0.0          | 0.0              | 0.975757 | 0.445892 | 0.831970         |
+
+Sedangkan apabila pairwise_metrics menggunakan **cosine_sim (algoritma Cosine Similarity)** hasilnya sebagai berikut. 
+| track_name                     | track_artist       | playlist_genre | playlist_subgenre | danceability | energy   | key      | loudness | mode | speechiness | acousticness | instrumentalness | valence  | tempo    | similarity_score |
+|--------------------------------|--------------------|----------------|-------------------|--------------|----------|----------|----------|------|-------------|--------------|------------------|----------|----------|------------------|
+| Chantaje (feat. Maluma)        | Shakira            | latin          | latin pop         | 0.859186     | 0.772960 | 0.727273 | 0.926126 | 0.0  | 0.061215    | 0.0          | 0.0              | 0.916161 | 0.366919 | 0.996605         |
+| Jam                            | Starboy            | latin          | latin pop         | 0.729460     | 0.760958 | 0.909091 | 0.898508 | 0.0  | 0.030049    | 0.0          | 0.0              | 0.797978 | 0.321687 | 0.996490         |
+| No Te Veo - Digital Single     | Casa De Leones     | latin          | latin pop         | 0.853642     | 0.872978 | 0.727273 | 0.886040 | 0.0  | 0.064343    | 0.0          | 0.0              | 0.975757 | 0.445892 | 0.996351         |
+| Lejos De Ti                    | Gian Marco         | latin          | latin pop         | 0.685109     | 0.754957 | 0.636364 | 0.842167 | 0.0  | 0.017650    | 0.0          | 0.0              | 0.777776 | 0.355519 | 0.996138         |
+| DUELE EL CORAZON               | Enrique Iglesias   | latin          | latin pop         | 0.717264     | 0.903983 | 0.727273 | 0.916913 | 0.0  | 0.082440    | 0.0          | 0.0              | 0.854544 | 0.304550 | 0.995926         |
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
+Metrik evaluasi yang digunakan untuk proyek ini adalah _Precision_. Metrik ini cocok digunakan untuk algoritma _content-based filtering_. _Precision_ memiliki formula sebagai berikut. <br>
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+gambar rumus <br>
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Berdasarkan tabel hasil dari **Euclidean Distance**, seluruh hasilnya memiliki genre, subgenre, mode, acousticness, dan instrumentalness yang sama serta selisih dari nilai-nilai numerik lainnya tidak jauh. Hal ini berarti hasil yang diberikan relevan sehingga memiliki _Precision_ 5/5 atau 100%. 
+<br><br>
+Hal ini juga sama dengan tabel hasil dari **Cosine Similarity**. Seluruh hasilnya memberikan genre, subgenre, mode, acousticness, dan istumentalness yang sama serta juga memiliki selisih nilai numerik lainnya yang tidak jauh. Dengan hal ini, dapat disimpulkan bahwa nilai _Precision_ juga 5/5 atau 100%. 
+<br><br>
+Catatan tambahan:
+- Perbedaan besar pada similarity_score antara Euclidean Distance dengan Cosine Similarity diakibatkan perbedaan cara kerja kedua algoritma tersebut. Cosine Similarity melihat kesamaan dari vektor fitur sedangkan Euclidean Distance melihat jarak absolut antar ruang fitur. 
 
-**---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+## Kesimpulan 
+Kesimpulan dari proyek ini sebagai berikut.
+- **Cosine Similarity** dan **Euclidean Distance** keduanya dapat digunakan untuk memberikan rekomendasi berdasarkan suatu track. Pemilihan antara menggunakan **Cosine Similarity** atau **Euclidean Distance** berdasarkan tujuannya. Jika tujuannya untuk mengukur kesamaan vektor fitur tanpa mempedulikan panjang vektor, **Cosine Similarity** lebih cocok. Sedangkan apabila untuk mengukur jarak nyata antara dua titik, **Euclidean Distance** lebih cocok. Untuk proyek ini sendiri, saya lebih cenderung memilih **Euclidean Distance** karena banyaknya data yang bersifat kontinu dan menghitung jarak antar titik memberikan hasil yang lebih presisi.  
+- Metode _Precision_ dapat digunakan untuk evaluasi hasil Sistem Rekomendasi berbasis _content-based filtering_. 
 
 ## Referensi 
 [There are now 120,000 new tracks hitting music streaming services each day](https://www.musicbusinessworldwide.com/there-are-now-120000-new-tracks-hitting-music-streaming-services-each-day/) <br>
