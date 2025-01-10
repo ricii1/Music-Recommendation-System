@@ -196,7 +196,7 @@ Data Preparation adalah tahap untuk memproses data sebelum digunakan untuk train
 - encoding data kategori
 
 ### Pengurangan Jumlah Data
-Pengurangan jumlah data ini adalah langkah pertama yang dilakukan pada data preparation. Pengurangan jumlah data dilakukan dengan hanya mengambil 15.000 data teratas pada dataset berdasarkan ```track_popularity```. Hal ini perlu dilakukan karena pada keterbatasan RAM dan komputasi. 
+Pengurangan jumlah data ini adalah langkah pertama yang dilakukan pada data preparation. Pengurangan jumlah data dilakukan dengan hanya mengambil 15.000 data teratas pada dataset berdasarkan ```track_popularity```. Hal ini perlu dilakukan karena keterbatasan RAM dan komputasi pada proyek ini. 
 ```py
 raw_data = raw_data.sort_values(by="track_popularity", ascending=False)
 raw_data = raw_data.head(15000).reset_index(drop=True)
