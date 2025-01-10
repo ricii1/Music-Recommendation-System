@@ -188,7 +188,7 @@ Hasil pengecekan missing value menunjukkan bahwa tidak ada data null pada datase
 
 ## Data Preparation
 Data Preparation adalah tahap untuk memproses data sebelum digunakan untuk training model. Data preparation yang dilakukan pada proyek ini adalah:
-- Pengurangan jumlah data
+- pengurangan jumlah data
 - pengecekan dan drop duplicate
 - drop kolom tidak relevan
 - penyederhanaan data
@@ -196,7 +196,7 @@ Data Preparation adalah tahap untuk memproses data sebelum digunakan untuk train
 - encoding data kategori
 
 ### Pengurangan Jumlah Data
-Pengurangan jumlah data ini adalah langkah pertama yang dilakukan pada data preparation. Pengurangan jumlah data dilakukan dengan hanya mengambil 15.000 data teratas pada dataset berdasarkan ```track_popularity```. 
+Pengurangan jumlah data ini adalah langkah pertama yang dilakukan pada data preparation. Pengurangan jumlah data dilakukan dengan hanya mengambil 15.000 data teratas pada dataset berdasarkan ```track_popularity```. Hal ini perlu dilakukan karena pada keterbatasan RAM dan komputasi. 
 ```py
 raw_data = raw_data.sort_values(by="track_popularity", ascending=False)
 raw_data = raw_data.head(15000).reset_index(drop=True)
