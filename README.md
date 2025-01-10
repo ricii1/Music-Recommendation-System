@@ -157,17 +157,8 @@ Dataset yang digunakan adalah dataset _30000 Spotify Songs_ yang dibuat oleh Joa
   - Tempo <br>
     ![image](https://github.com/user-attachments/assets/385a5b4d-5799-4166-9043-00508d637063)
     Tempo lagu tersebar cukup merata pada nilai 70-200 dan memiliki 2 puncak. Puncak pertama pada rentang data 90-100 dan puncak kedua pada rentang data 120-130. 
-
-## Data Preparation
-Data Preparation adalah tahap untuk memproses data sebelum digunakan untuk training model. Data preparation yang dilakukan pada proyek ini adalah:
-- pengecekan dan drop data null dan duplicate
-- drop kolom tidak relevan
-- penyederhanaan data
-- standarisasi data numerik
-- encoding data kategori
-
-### Pengecekan dan Drop Data Null dan Duplicate
-Data null harus dicek dan apabila ada harus didrop agar menghindari kesalahan perhitungan pada algoritma dan meningkatkan efisiensi komputasi dengan mengurangi data yang tidak bermakna. Hasil pengecekan dengan ```raw_data.isnull().sum()``` menunjukkan tabel berikut.
+### Pengecekan Missing Value
+Hasil pengecekan missing value menunjukkan bahwa tidak ada data null pada dataset. 
 | Column                     | Missing Values |
 |----------------------------|----------------|
 | track_id                   | 0              |
@@ -195,8 +186,24 @@ Data null harus dicek dan apabila ada harus didrop agar menghindari kesalahan pe
 | duration_ms                | 0              |
 | duration_min               | 0              |
 
-Berarti data yang ada tidak memiliki nilai null. <br>
+## Data Preparation
+Data Preparation adalah tahap untuk memproses data sebelum digunakan untuk training model. Data preparation yang dilakukan pada proyek ini adalah:
+- Pengurangan jumlah data
+- pengecekan dan drop duplicate
+- drop kolom tidak relevan
+- penyederhanaan data
+- standarisasi data numerik
+- encoding data kategori
 
+### Pengurangan Jumlah Data
+Pengurangan jumlah data ini adalah langkah pertama yang dilakukan pada data preparation. Pengurangan jumlah data dilakukan dengan hanya mengambil 15.000 data teratas pada dataset berdasarkan ```track_popularity```. 
+```py
+raw_data = raw_data.sort_values(by="track_popularity", ascending=False)
+raw_data = raw_data.head(15000).reset_index(drop=True)
+```
+Pada notebook, langkah ini dilakukan sebelum Data Understanding agar hasil Data Understanding menunjukkan dengan jelas kondisi data hanya dari 15.000 data yang diambil tersebut. 
+
+### Pengecekan dan Drop Duplicate
 Data duplicate harus dihilangkan agar hasil rekomendasi tidak memberikan track yang sama dua kali serta meningkatkan efisiensi komputasi dengan menghilangkan perhitungan untuk data yang sama. Penghapusan data duplicate pada projek ini dilakukan dua kali sebagai berikut. 
 1. Penghapusan data duplicate berdasarkan track_id <br>
   Berdasarkan pengecekan data duplicate berdasarkan track_id dengan
