@@ -11,13 +11,13 @@ Berdasarkan latar belakang tersebut, proyek ini akan membahas mengenai _recommen
 
 ### Problem Statements
 Rumusan masalah berdasarkan latar belakang di atas sebagai berikut. 
-- Bagaimana model yang tepat untuk memberikan top-N rekomendasi musik dengan _content-based filtering_?
-- Bagaimana cara mengukur evaluasi model pada _content-based filtering_?
+- Bagaimana meningkatkan pengalaman pengguna dengan memberikan rekomendasi musik yang relevan menggunakan pendekatan content-based filtering?
+- Bagaimana algoritma model yang tepat untuk memberikan top-N rekomendasi musik?
 
 ### Goals
 Tujuan dari proyek ini adalah sebagai berikut: 
-- mendapatkan model yang tepat untuk memberikan top-N rekomendasi musik dengan _content-based filtering_
-- mendapatkan cara mengukur evaluasi model pada _content-based filtering_
+- mendapatkan cara untuk meningkatkan pengalaman pengguna dengan memberikan rekomendasi musik yang relevan menggunakan pendekatan content-based filtering
+- mendapatkan algoritma model yang tepat untuk memberikan top-N rekomendasi musik 
 
 ### Solution statements
 Cara yang dapat dilakukan untuk meraih goals tersebut adalah sebagai berikut:
@@ -401,8 +401,8 @@ Catatan tambahan:
 
 ## Kesimpulan 
 Kesimpulan dari proyek ini sebagai berikut.
-- **Cosine Similarity** dan **Euclidean Distance** keduanya dapat digunakan untuk memberikan rekomendasi berdasarkan suatu track. Pemilihan antara menggunakan **Cosine Similarity** atau **Euclidean Distance** berdasarkan tujuannya. Jika tujuannya untuk mengukur kesamaan vektor fitur tanpa mempedulikan panjang vektor, **Cosine Similarity** lebih cocok. Sedangkan apabila untuk mengukur jarak nyata antara dua titik, **Euclidean Distance** lebih cocok. Untuk proyek ini sendiri, saya lebih cenderung memilih **Euclidean Distance** karena banyaknya data yang bersifat kontinu dan menghitung jarak antar titik memberikan hasil yang lebih presisi.  
-- Metode _Precision_ dapat digunakan untuk evaluasi hasil Sistem Rekomendasi berbasis _content-based filtering_. 
+- Sistem Rekomendasi berbasis _content-based filtering_ dapat digunakan untuk meningkatkan pengalaman pengguna berdasarkan mencari lagu yang mirip dengan lagu yang disukai oleh pendengar atau terakhir didengar oleh pendengar. Karakteristik lagu ini dapat menjadi acuan untuk mencari lagu lain yang serupa dari sisi karakteristik musiknya. 
+- **Cosine Similarity** dan **Euclidean Distance** keduanya dapat digunakan untuk memberikan rekomendasi berdasarkan suatu track. Pemilihan antara menggunakan **Cosine Similarity** atau **Euclidean Distance** berdasarkan tujuannya. Jika tujuannya untuk mengukur kesamaan vektor fitur tanpa mempedulikan panjang vektor, **Cosine Similarity** lebih cocok. Sedangkan apabila untuk mengukur jarak nyata antara dua titik, **Euclidean Distance** lebih cocok. Untuk proyek ini sendiri, saya lebih cenderung memilih **Euclidean Distance** karena banyaknya data yang bersifat kontinu dan menghitung jarak antar titik memberikan hasil yang lebih presisi.
 
 ## Referensi 
 [There are now 120,000 new tracks hitting music streaming services each day](https://www.musicbusinessworldwide.com/there-are-now-120000-new-tracks-hitting-music-streaming-services-each-day/) <br>
